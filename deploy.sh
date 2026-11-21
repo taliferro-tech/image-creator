@@ -4,6 +4,10 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 cd "${SCRIPT_DIR}"
 
+# Install the @taliferro/ui version the lockfile asks for, if it isn't already
+# (deploys never reinstall packages otherwise). No-op when it matches.
+./scripts/ensure-ui-package.sh
+
 # Cypress is Electron-based; prevent shells configured to run Electron as Node
 # from breaking the browser test runner.
 unset ELECTRON_RUN_AS_NODE || true
